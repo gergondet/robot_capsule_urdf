@@ -17,23 +17,14 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-SET(PROJECT_NAME robot_capsule_urdf)
-SET(PROJECT_DESCRIPTION
-  "Generation of capsule collision models urdf files."
-  )
-SET(PROJECT_URL https://github.com/laas/robot_capsule_urdf)
-SET(CUSTOM_HEADER_DIR ${PROJECT_NAME})
+project(robot_capsule_urdf)
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/cpack.cmake)
+find_package(catkin REQUIRED COMPONENTS rospy urdfdom_py)
+include_directories(${catkin_INCLUDE_DIRS})
 
-# Where to compile shared objects
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+catkin_package(CATKIN_DEPENDS rospy urdfdom_py)
 
-SETUP_PROJECT()
-ADD_REQUIRED_DEPENDENCY(urdfdom >= 0.2.9)
 INSTALL(PROGRAMS
   bin/robot_capsule_urdf
-  DESTINATION ${CMAKE_INSTALL_PKGLIBDIR}
-  )
-SETUP_PROJECT_FINALIZE()
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
